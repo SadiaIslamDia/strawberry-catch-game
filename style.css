@@ -1,0 +1,251 @@
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+  background: linear-gradient(160deg, #ffe4f4 0%, #fdf0ff 50%, #ffeef7 100%);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Background Floating Flowers ─────────────────────────── */
+.bg-float {
+  position: fixed;
+  font-size: 40px;       /* was 36px — slightly bigger */
+  opacity: 0.22;         /* was 0.18 — slightly more visible */
+  pointer-events: none;
+  animation: bgFloat linear infinite;
+  z-index: 0;
+}
+@keyframes bgFloat {
+  from { transform: translateY(110vh) rotate(0deg); }
+  to   { transform: translateY(-15vh) rotate(360deg); }
+}
+
+/* ── Screens ──────────────────────────────────────────────── */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  z-index: 100;
+}
+.screen.hidden { display: none; }
+
+/* Start Screen */
+#startScreen h1 {
+  font-size: clamp(22px, 5vw, 32px);
+  color: #e0157a;
+  text-shadow: 2px 2px 0 #ffb3d9;
+}
+#startScreen p {
+  color: #c0306a;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.7;
+}
+.control-hint {
+  font-size: 13px !important;
+  color: #d06090 !important;
+  margin-top: -4px;
+}
+
+/* Game Over Screen */
+#gameOverScreen {
+  background: rgba(255, 230, 245, 0.93);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 24px;
+  padding: 34px 44px;
+  box-shadow: 0 8px 40px rgba(220, 50, 130, 0.28);
+  border: 2px dashed #ffaacc;
+  inset: unset;
+  position: relative;
+}
+#gameOverScreen h2 {
+  font-size: 30px;
+  color: #e0157a;
+  text-shadow: 2px 2px 0 #ffb3d9;
+}
+.final-info {
+  font-size: 18px;
+  color: #c0306a;
+}
+#newHighMsg {
+  font-size: 15px;
+  color: #ff3399;
+  font-weight: bold;
+  background: #fff0f8;
+  border: 2px solid #ffb3d9;
+  border-radius: 12px;
+  padding: 6px 18px;
+  display: none;
+}
+
+/* ── Button ───────────────────────────────────────────────── */
+.btn {
+  padding: 13px 32px;
+  background: linear-gradient(135deg, #ff66b2, #ff3385);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-size: 16px;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(255, 50, 130, 0.45);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn:hover  { transform: scale(1.08); box-shadow: 0 6px 24px rgba(255, 50, 130, 0.55); }
+.btn:active { transform: scale(0.96); }
+
+/* ── Game Wrapper ─────────────────────────────────────────── */
+#gameWrapper {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 1;
+}
+
+/* ── HUD ──────────────────────────────────────────────────── */
+#hud {
+  display: flex;
+  gap: 24px;
+  font-size: 17px;
+  color: #cc3077;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.65);
+  padding: 8px 24px;
+  border-radius: 50px;
+  border: 2px solid #ffc0e0;
+  box-shadow: 0 2px 12px rgba(255, 100, 180, 0.2);
+}
+
+/* ── Hint ─────────────────────────────────────────────────── */
+#hint {
+  font-size: 12px;
+  color: #d060a0;
+  opacity: 0.72;
+}
+
+/* ── Game Area ────────────────────────────────────────────── */
+#gameArea {
+  width: min(420px, 96vw);
+  height: min(520px, 66dvh);
+
+
+  background-image: url('media/gamearenabackground.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Fallback gradient (shown if image not found) */
+  background-color: #ffd6ea;
+
+  border: 3px dashed #ffaacc;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(255, 130, 200, 0.3),
+              inset 0 0 60px rgba(255, 255, 255, 0.18);
+
+  /* CRITICAL for touch drag — blocks page scroll inside arena */
+  touch-action: none;
+
+  /* Hide system cursor; basket acts as the cursor */
+  cursor: none;
+}
+
+/* Grass strip at bottom of arena */
+#gameArea::before {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 26px;
+  background: linear-gradient(0deg, rgba(110, 210, 90, 0.28), transparent);
+  pointer-events: none;
+  border-radius: 0 0 22px 22px;
+}
+
+/* ── Basket ───────────────────────────────────────────────── */
+#basket {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  font-size: clamp(38px, 9vw, 48px);
+  line-height: 1;
+  width: 64px;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;       /* Let mouse/touch events pass to #gameArea */
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+  transition: left 0.03s linear;
+}
+/* Tilt when using arrow keys */
+#basket.tilt-left  { transform: rotate(-14deg) scale(1.08); }
+#basket.tilt-right { transform: rotate(14deg)  scale(1.08); }
+
+/* ── Strawberry ───────────────────────────────────────────── */
+.strawberry {
+  position: absolute;
+  font-size: clamp(28px, 6vw, 34px);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 5;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.12));
+  animation: wobble 0.55s ease-in-out infinite alternate;
+}
+@keyframes wobble {
+  from { transform: rotate(-7deg); }
+  to   { transform: rotate(7deg);  }
+}
+
+/* ── Sparkle ──────────────────────────────────────────────── */
+.sparkle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 20;
+  font-size: 18px;
+  animation: sparkAnim 0.65s ease-out forwards;
+}
+@keyframes sparkAnim {
+  0%   { opacity: 1; transform: scale(0.7) translateY(0); }
+  60%  { opacity: 1; transform: scale(1.6) translateY(-20px); }
+  100% { opacity: 0; transform: scale(2.2) translateY(-38px); }
+}
+
+/* ── Score Pop ────────────────────────────────────────────── */
+.score-pop {
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff1a88;
+  text-shadow: 1px 1px 0 #fff;
+  pointer-events: none;
+  z-index: 30;
+  animation: scorePop 0.7s ease-out forwards;
+}
+@keyframes scorePop {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-48px) scale(1.5); }
+}
+
+/* ── Miss Flash ───────────────────────────────────────────── */
+@keyframes missFlash {
+  0%, 100% { border-color: #ffaacc; }
+  35% {
+    border-color: #ff2222;
+    box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.3),
+                inset 0 0 30px rgba(255, 0, 0, 0.12);
+  }
+}
+#gameArea.miss-flash { animation: missFlash 0.38s ease; }

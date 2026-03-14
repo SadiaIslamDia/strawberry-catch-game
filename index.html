@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>🍓 Strawberry Catch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Background flowers (decorative) -->
+<div class="bg-float" style="left:2%;animation-duration:14s;animation-delay:0s">🌸</div>
+<div class="bg-float" style="left:8%;animation-duration:20s;animation-delay:-4s">🌷</div>
+<div class="bg-float" style="left:15%;animation-duration:16s;animation-delay:-8s">🌼</div>
+<div class="bg-float" style="left:22%;animation-duration:18s;animation-delay:-2s">💮</div>
+<div class="bg-float" style="left:30%;animation-duration:13s;animation-delay:-6s">🌸</div>
+<div class="bg-float" style="left:38%;animation-duration:22s;animation-delay:-10s">🌺</div>
+<div class="bg-float" style="left:45%;animation-duration:15s;animation-delay:-3s">🌷</div>
+<div class="bg-float" style="left:52%;animation-duration:19s;animation-delay:-7s">🌸</div>
+<div class="bg-float" style="left:60%;animation-duration:17s;animation-delay:-1s">🌼</div>
+<div class="bg-float" style="left:67%;animation-duration:21s;animation-delay:-5s">💐</div>
+<div class="bg-float" style="left:74%;animation-duration:14s;animation-delay:-9s">🌸</div>
+<div class="bg-float" style="left:81%;animation-duration:16s;animation-delay:-3s">🌷</div>
+<div class="bg-float" style="left:87%;animation-duration:23s;animation-delay:-6s">💮</div>
+<div class="bg-float" style="left:93%;animation-duration:18s;animation-delay:-11s">🌺</div>
+<div class="bg-float" style="left:97%;animation-duration:15s;animation-delay:-2s">🌸</div>
+
+  <!-- ══ START SCREEN ══ -->
+  <div class="screen" id="startScreen">
+    <h1>🍓 Strawberry Catch 🍓</h1>
+    <p>Catch falling strawberries with the basket!<br>
+       Miss <strong>3</strong> and it's game over.</p>
+    <p class="control-hint">
+      🖱 Move mouse &nbsp;·&nbsp; 👆 Touch &amp; drag &nbsp;·&nbsp; ⌨️ Arrow keys
+    </p>
+    <button class="btn" id="startBtn">▶ Start Game</button>
+  </div>
+
+  <!-- ══ GAME ══ -->
+  <div id="gameWrapper">
+    <div id="hud">
+      <span>🍓 <span id="score">0</span></span>
+      <span>💖 <span id="life">3</span></span>
+      <span>🏆 <span id="highScore">0</span></span>
+    </div>
+
+    <div id="gameArea">
+      <div id="basket">🧺</div>
+    </div>
+
+    <div id="hint">Move mouse · drag with finger · or use ← → keys</div>
+  </div>
+
+  <!-- ══ GAME OVER ══ -->
+  <div class="screen hidden" id="gameOverScreen">
+    <h2>Game Over 💔</h2>
+    <p class="final-info">Score: <strong id="finalScore">0</strong></p>
+    <p id="newHighMsg">🏆 New High Score!</p>
+    <button class="btn" onclick="location.reload()">🔄 Play Again</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       🔊 SOUNDS — point each src to your file
+       All files should be inside your media/ folder
+  ══════════════════════════════════════════ -->
+  <audio id="startSound"   src="media/startsound.mp3"     preload="auto"></audio>
+  <audio id="catchSound"   src="media/catchsound.mp3"     preload="auto"></audio>
+  <audio id="missSound"    src="media/missound.mp3"      preload="auto"></audio>
+  <audio id="gameoverSound" src="media/GameOverSound.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
